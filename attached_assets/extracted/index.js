@@ -37,6 +37,7 @@ Terima kasih telah menghargai karya dan kreator ✦
 **/
 console.clear();
 console.log('© Cantarella Dev');
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 require('./config');
 
 const { 
@@ -119,7 +120,7 @@ cfonts.say('Cantarella',
     rawMode: false,
 });
 async function Starts() {
-	const { state, saveCreds } = await useMultiFileAuthState("./session");
+        const { state, saveCreds } = await useMultiFileAuthState("./session");
     const Cantarella = makeWASocket({
         printQRInTerminal: false,
         syncFullHistory: true,
