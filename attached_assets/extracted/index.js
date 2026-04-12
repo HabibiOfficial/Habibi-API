@@ -53,16 +53,13 @@ const {
     jidDecode, 
     proto, 
     delay,
-    relayWAMessage, 
     getContentType, 
     getAggregateVotesInPollMessage, 
     downloadContentFromMessage, 
-    fetchLatestWaWebVersion, 
-    InteractiveMessage, 
     makeCacheableSignalKeyStore, 
-    Browsers, 
-    generateForwardMessageContent, 
-    MessageRetryMap 
+    Browsers,
+    areJidsSameUser,
+    jidNormalizedUser
 } = require("@whiskeysockets/baileys");
 
 const cfonts = require('cfonts');
@@ -121,6 +118,7 @@ cfonts.say('Cantarella',
 });
 async function Starts() {
         const { state, saveCreds } = await useMultiFileAuthState("./session");
+    const { version } = await fetchLatestBaileysVersion();
     const Cantarella = makeWASocket({
         printQRInTerminal: false,
         syncFullHistory: true,
@@ -129,12 +127,15 @@ async function Starts() {
         defaultQueryTimeoutMs: 0,
         keepAliveIntervalMs: 10000,
         generateHighQualityLinkPreview: true, 
-        version: (await (await fetch('https://raw.githubusercontent.com/WhiskeySockets/Baileys/master/src/Defaults/baileys-version.json')).json()).version,
-        browser: ["Ubuntu", "Chrome", "20.0.04"],
+        version,
+        browser: Browsers.ubuntu('Chrome'),
         logger: pino({
             level: 'silent'
         }),
-        auth: state
+        auth: {
+            creds: state.creds,
+            keys: makeCacheableSignalKeyStore(state.keys, pino({ level: 'silent' }))
+        }
     });
 
     if (usePairingCode && !Cantarella.authState.creds.registered) {

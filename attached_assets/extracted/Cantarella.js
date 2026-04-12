@@ -59,7 +59,7 @@ const { pinterest, pinterest2, remini, mediafire, tiktokDl } = require('./lib/sc
 const { tiktokSearchVideo } = require('./lib/scraper');
 const owner = JSON.parse(fs.readFileSync("./lib/database/owner.json"))
 const {
-	UploadFileUgu
+        UploadFileUgu
 } = require('./lib/uploaderr')
 const { CatBox, TelegraPh, floNime, uptotelegra } = require('./lib/uploader');
 let db_respon_list = JSON.parse(fs.readFileSync('./lib/list-message.json'));
@@ -78,7 +78,27 @@ const {
     execSync 
    } = require('child_process');
 const { FajarNews, BBCNews, metroNews, CNNNews, iNews, KumparanNews, TribunNews, DailyNews, DetikNews, OkezoneNews, CNBCNews, KompasNews, SindoNews, TempoNews, IndozoneNews, AntaraNews, RepublikaNews, VivaNews, KontanNews, MerdekaNews, KomikuSearch, AniPlanetSearch, KomikFoxSearch, KomikStationSearch, MangakuSearch, KiryuuSearch, KissMangaSearch, KlikMangaSearch, PalingMurah, LayarKaca21, AminoApps, Mangatoon, WAModsSearch, Emojis, CoronaInfo, JalanTikusMeme,Cerpen, Quotes, Couples, Darkjokes } = require("dhn-api");
-const { makeWASocket, makeCacheableSignalKeyStore, downloadContentFromMessage, emitGroupParticipantsUpdate, emitGroupUpdate, generateWAMessageContent, generateWAMessage, makeInMemoryStore, prepareWAMessageMedia, generateWAMessageFromContent, MediaType, areJidsSameUser, WAMessageStatus, downloadAndSaveMediaMessage, AuthenticationState, GroupMetadata, initInMemoryKeyStore, getContentType, MiscMessageGenerationOptions, useSingleFileAuthState, BufferJSON, WAMessageProto, MessageOptions, WAFlag, WANode, WAMetric, ChatModification, MessageTypeProto, WALocationMessage, ReCantarellaectMode, WAContextInfo, proto, WAGroupMetadata, ProxyAgent, waChatKey, MimetypeMap, MediaPathMap, WAContactMessage, WAContactsArrayMessage, WAGroupInviteMessage, WATextMessage, WAMessageContent, WAMessage, BaileysError, WA_MESSAGE_STATUS_TYPE, MediaCantarellaInfo, URL_REGEX, WAUrlInfo, WA_DEFAULT_EPHEMERAL, WAMediaUpload, mentionedJid, Browser, MessageType, Presence, WA_MESSAGE_STUB_TYPES, Mimetype, relayWAMessage, Browsers, GroupSettingChange, DisCantarellaectReason, WASocket, getStream, WAProto, isBaileys, PHONENUMBER_MCC, AnyMessageContent, useMultiFileAuthState, fetchLatestBaileysVersion, templateMessage, InteractiveMessage, Header } = require('@whiskeysockets/baileys')
+const { 
+    default: makeWASocket,
+    makeCacheableSignalKeyStore, 
+    downloadContentFromMessage, 
+    generateWAMessageContent, 
+    generateWAMessage, 
+    makeInMemoryStore, 
+    prepareWAMessageMedia, 
+    generateWAMessageFromContent, 
+    areJidsSameUser, 
+    getContentType,
+    proto,
+    Browsers,
+    useMultiFileAuthState, 
+    fetchLatestBaileysVersion,
+    jidNormalizedUser,
+    jidDecode,
+    delay,
+    getAggregateVotesInPollMessage,
+    DisconnectReason
+} = require('@whiskeysockets/baileys')
 
 const { unixTimestampSeconds, generateMessageTag, processTime, webApi, getRandom, getBuffer, fetchJson, runtime, clockString, sleep, isUrl, getTime, formatDate, tanggal, formatp, jsonformat, reSize, toHD, logic, generateProfilePicture, bytesToSize, checkBandwidth, getSizeMedia, parseMention, getGroupAdmins, readFileTxt, readFileJson, getHashedPassword, generateAuthToken, cekMenfes, generateToken, batasiTeks, randomText, isEmoji, getTypeUrlMedia, pickRandom, toIDR, capital } = require('./lib/function.js');
 
@@ -159,15 +179,15 @@ const date = moment.tz('Asia/Jakarta').format('DD/MM/YYYY');
 const time2 = moment.tz('Asia/Jakarta').format('HH:mm:ss');
 //
         if (time2 < "05:00:00") {
-	ucapanWaktu = "Selamat Pagi 🌄";
+        ucapanWaktu = "Selamat Pagi 🌄";
 } else if (time2 < "11:00:00") {
-	ucapanWaktu = "Selamat Pagi 🌄";
+        ucapanWaktu = "Selamat Pagi 🌄";
 } else if (time2 < "15:00:00") {
-	ucapanWaktu = "Selamat Siang 🌅";
+        ucapanWaktu = "Selamat Siang 🌅";
 } else if (time2 < "18:00:00") {
-	ucapanWaktu = "Selamat Sore 🌇";
+        ucapanWaktu = "Selamat Sore 🌇";
 } else if (time2 < "19:00:00") {
-	ucapanWaktu = "Selamat Petang 🌆";
+        ucapanWaktu = "Selamat Petang 🌆";
 }
 //
 
@@ -719,16 +739,16 @@ delete Cantarella.autoshalat[m.chat]
         ]
     }
     }
-		async function emote(emo) {
-			Cantarella.sendMessage(m.chat, {
-				react: {
-					text: emo,
-					key: m.key
-				}
-			});
-		}
-		//
-		//
+                async function emote(emo) {
+                        Cantarella.sendMessage(m.chat, {
+                                react: {
+                                        text: emo,
+                                        key: m.key
+                                }
+                        });
+                }
+                //
+                //
 //
 function monospace(string) {
 return '```' + string + '```'
@@ -843,7 +863,7 @@ delete family
 //
 
 //
-		// FUNCTION Onlygc
+                // FUNCTION Onlygc
 //if (!isCreator && global.onlygc && !m.isGroup && isCmd && !['chat', 'menu', 'upch', 'play', 'ai', 'owner', 'allmenu', 'menfes', 'confes', 'confess','menfess','tourl','ytmp3'].includes(command)) return m.reply(`bot sedang mode group🤐`)
         if (!isOwner && global.onlygc && !m.isGroup && isCmd && !['chat', 'menuu', 'panel', 'tt'].includes(command)) return Cantarella.sendMessage(m.chat, {image: {url: thumbnail }, caption: `*akses ditolak*\n\nBot Sedang Mode Only Group, Join group agar bisa menggunakan bot\n${linkgc}` }, {quoted: m})
 //
@@ -865,7 +885,7 @@ if (isCmd) {
 await loadPluginsCommand(m, command, handleData)
 }
 //
-		
+                
 //============= [ COMMANDS ] ====================================================
         switch (command) {
 case 'owner': {
@@ -1466,21 +1486,21 @@ await m.reply(`Sukses menonaktifkan ${command}.`)
 break               
 // ============Group
 case 'delete':
-			case 'd':
-			case 'del': {
-			if (!isGroupAdmins && !isOwner) return reply(mess.admin)
+                        case 'd':
+                        case 'del': {
+                        if (!isGroupAdmins && !isOwner) return reply(mess.admin)
 if (!isGroup) return reply(mess.group);
 if (!isBotAdmins) return reply(mess.botadmin)
-				if (!m.quoted) return reply('Kak, kamu perlu mengirim pesan yang mau dihapus ya! 🤔')
-				await Cantarella.sendMessage(m.chat, {
-					delete: {
-						remoteJid: m.chat,
-						id: m.quoted.id,
-						participant: m.quoted.sender
-					}
-				})
-			}
-			break
+                                if (!m.quoted) return reply('Kak, kamu perlu mengirim pesan yang mau dihapus ya! 🤔')
+                                await Cantarella.sendMessage(m.chat, {
+                                        delete: {
+                                                remoteJid: m.chat,
+                                                id: m.quoted.id,
+                                                participant: m.quoted.sender
+                                        }
+                                })
+                        }
+                        break
 case 'antibot': {
 if (!isGroupAdmins && !isOwner) return reply(mess.admin)
 if (!isGroup) return reply(mess.group);
@@ -3815,7 +3835,7 @@ await Cantarella.sendImageAsSticker(m.chat, image, m, {packname: foother})
 Cantarella.sendMessage(m.chat, { react: { text: '✅', key: m.key }})
 }
 
-			break
+                        break
 case 'brat1':
     case 'bratfoto':
     case 'brat': {
@@ -3825,7 +3845,7 @@ await Cantarella.sendImageAsSticker(m.chat, image, m, {packname: foother})
 Cantarella.sendMessage(m.chat, { react: { text: '✅', key: m.key }})
 }
 
-			break
+                        break
 case 'tovn': {
 if (!/video/.test(mime) && !/audio/.test(mime)) return m.reply(`Reply video/audio dengan caption ${prefix + command}`)
 if (!quoted) return reply(`Reply video/audio dengan caption ${prefix + command}`)
@@ -3979,28 +3999,28 @@ await fs.unlinkSync(media)
 }
 break
 case 'tourl2': {
-				if (!mime) return reply(`Kirim/Balas Video/Gambar Dengan Caption ${prefix + command}`);
-				try {
-					let media = await Cantarella.downloadAndSaveMediaMessage(quoted);
-					if (/image|video/.test(mime)) {
-						let response = await CatBox(media);
-						let fileSize = (fs.statSync(media).size / 1024).toFixed(2);
-						let uploadDate = new Date().toLocaleString();
-						let uploader = m.pushName;
-						let caption = `🔗 *Link Media* : ${response}\n📅 *Tanggal Upload* : ${uploadDate}\n📂 *Ukuran File* : ${fileSize} KB\n👤 *Pengunggah* : ${uploader}`.trim();
-						reply(caption);
-					} else if (!/image/.test(mime)) {
-						let response = await CatBox(media);
-						reply(response);
-					} else {
-					reply(`Jenis media tidak didukung!`);
-					}
-					await fs.unlinkSync(media);
-				} catch (err) {
-					console.log(err);
-					reply("Ups, terjadi kesalahan saat mengunggah media. Coba lagi ya! 😅");
-				}
-			}
+                                if (!mime) return reply(`Kirim/Balas Video/Gambar Dengan Caption ${prefix + command}`);
+                                try {
+                                        let media = await Cantarella.downloadAndSaveMediaMessage(quoted);
+                                        if (/image|video/.test(mime)) {
+                                                let response = await CatBox(media);
+                                                let fileSize = (fs.statSync(media).size / 1024).toFixed(2);
+                                                let uploadDate = new Date().toLocaleString();
+                                                let uploader = m.pushName;
+                                                let caption = `🔗 *Link Media* : ${response}\n📅 *Tanggal Upload* : ${uploadDate}\n📂 *Ukuran File* : ${fileSize} KB\n👤 *Pengunggah* : ${uploader}`.trim();
+                                                reply(caption);
+                                        } else if (!/image/.test(mime)) {
+                                                let response = await CatBox(media);
+                                                reply(response);
+                                        } else {
+                                        reply(`Jenis media tidak didukung!`);
+                                        }
+                                        await fs.unlinkSync(media);
+                                } catch (err) {
+                                        console.log(err);
+                                        reply("Ups, terjadi kesalahan saat mengunggah media. Coba lagi ya! 😅");
+                                }
+                        }
 
 break ;
 case "hdvideo":
@@ -4278,60 +4298,60 @@ console.error(error);
     break
 // ============Converter
             case 'bass':
-			case 'blown':
-			case 'deep':
-			case 'earrape':
-			case 'fast':
-			case 'fat':
-			case 'nightcore':
-			case 'reverse':
-			case 'robot':
-			case 'slow':
-			case 'smooth':
-			case 'tupai': {
-				try {
-					let set
-					if(/bass/.test(command)) set = '-af equalizer=f=54:width_type=o:width=2:g=20'
-					if (/blown/.test(command)) set = '-af acrusher=.1:1:64:0:log'
-					if (/deep/.test(command)) set = '-af atempo=4/4,asetrate=44500*2/3'
-					if (/earrape/.test(command)) set = '-af volume=12'
-					if (/fast/.test(command)) set = '-filter:a "atempo=1.63,asetrate=44100"'
-					if (/fat/.test(command)) set = '-filter:a "atempo=1.6,asetrate=22100"'
-					if (/nightcore/.test(command)) set = '-filter:a atempo=1.06,asetrate=44100*1.25'
-					if (/reverse/.test(command)) set = '-filter_complex "areverse"'
-					if (/robot/.test(command)) set = '-filter_complex "afftfilt=real=\'hypot(re,im)*sin(0)\':imag=\'hypot(re,im)*cos(0)\':win_size=512:overlap=0.75"'
-					if (/slow/.test(command)) set = '-filter:a "atempo=0.7,asetrate=44100"'
-					if (/smooth/.test(command)) set = '-filter:v "minterpolate=\'mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=120\'"'
-					if (/tupai/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
-					if (/audio/.test(mime)) {
-						await Cantarella.sendMessage(m.chat, {
-							react: {
-								text: "⏱️",
-								key: m.key,
-							}
-						})
-						let media = await Cantarella.downloadAndSaveMediaMessage(quoted)
-						let ran = getRandom('.mp3')
-						exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
-							fs.unlinkSync(media)
-							if (err) return m.reply(err)
-							let buff = fs.readFileSync(ran)
-							Cantarella.sendMessage(m.chat, {
-								audio: buff,
-								mimetype: 'audio/mpeg'
-							}, {
-								quoted: m
-							})
-							fs.unlinkSync(ran)
-						})
-					} else m.reply(`Balas audio yang ingin diubah dengan caption *${prefix + command}*`)
-				} catch (error) {
-					 
-				}
-			}
-			break
-			
-			//============ Sound
+                        case 'blown':
+                        case 'deep':
+                        case 'earrape':
+                        case 'fast':
+                        case 'fat':
+                        case 'nightcore':
+                        case 'reverse':
+                        case 'robot':
+                        case 'slow':
+                        case 'smooth':
+                        case 'tupai': {
+                                try {
+                                        let set
+                                        if(/bass/.test(command)) set = '-af equalizer=f=54:width_type=o:width=2:g=20'
+                                        if (/blown/.test(command)) set = '-af acrusher=.1:1:64:0:log'
+                                        if (/deep/.test(command)) set = '-af atempo=4/4,asetrate=44500*2/3'
+                                        if (/earrape/.test(command)) set = '-af volume=12'
+                                        if (/fast/.test(command)) set = '-filter:a "atempo=1.63,asetrate=44100"'
+                                        if (/fat/.test(command)) set = '-filter:a "atempo=1.6,asetrate=22100"'
+                                        if (/nightcore/.test(command)) set = '-filter:a atempo=1.06,asetrate=44100*1.25'
+                                        if (/reverse/.test(command)) set = '-filter_complex "areverse"'
+                                        if (/robot/.test(command)) set = '-filter_complex "afftfilt=real=\'hypot(re,im)*sin(0)\':imag=\'hypot(re,im)*cos(0)\':win_size=512:overlap=0.75"'
+                                        if (/slow/.test(command)) set = '-filter:a "atempo=0.7,asetrate=44100"'
+                                        if (/smooth/.test(command)) set = '-filter:v "minterpolate=\'mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=120\'"'
+                                        if (/tupai/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
+                                        if (/audio/.test(mime)) {
+                                                await Cantarella.sendMessage(m.chat, {
+                                                        react: {
+                                                                text: "⏱️",
+                                                                key: m.key,
+                                                        }
+                                                })
+                                                let media = await Cantarella.downloadAndSaveMediaMessage(quoted)
+                                                let ran = getRandom('.mp3')
+                                                exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
+                                                        fs.unlinkSync(media)
+                                                        if (err) return m.reply(err)
+                                                        let buff = fs.readFileSync(ran)
+                                                        Cantarella.sendMessage(m.chat, {
+                                                                audio: buff,
+                                                                mimetype: 'audio/mpeg'
+                                                        }, {
+                                                                quoted: m
+                                                        })
+                                                        fs.unlinkSync(ran)
+                                                })
+                                        } else m.reply(`Balas audio yang ingin diubah dengan caption *${prefix + command}*`)
+                                } catch (error) {
+                                         
+                                }
+                        }
+                        break
+                        
+                        //============ Sound
     case 'sound1':
     case 'sound2':
     case 'sound3':
@@ -7534,7 +7554,7 @@ let teks = `
 `
 m.reply(teks)
 }
-			break;
+                        break;
 case 'upch': {
   if (!text) return m.reply(`Contoh: ${command} Hai`)
   let teks = `\n${text}\n`
@@ -7761,36 +7781,36 @@ let teks = `*${monospa('Hasil Pencarian YouTube 👇')}*\n${redmo}${channel.map(
 let image = channel.length ? channel[0].image : video.length ? video[0].image : urlmenu.main
 
 let sections = [{
-		title: global.namebot2, 
-		highlight_label: 'start chats', 
-		rows: [{
-			header: global.namebot2, 
-	title: "Menu",
-	description: `kembali ke menu !`, 
-	id: '.menu'
-	},
-	{
-		header: global.namebot2, 
-		title: "Owner Bot", 
-		description: "Owner bot, pemilik bot", 
-		id: '.owner'
-	}]
+                title: global.namebot2, 
+                highlight_label: 'start chats', 
+                rows: [{
+                        header: global.namebot2, 
+        title: "Menu",
+        description: `kembali ke menu !`, 
+        id: '.menu'
+        },
+        {
+                header: global.namebot2, 
+                title: "Owner Bot", 
+                description: "Owner bot, pemilik bot", 
+                id: '.owner'
+        }]
 }]
 
 video.forEach(async(data) => {
 sections.push({
-	title: data.title, 
-	rows: [{
-		title: "Get Video", 
-		description: `Get video from "${data.title}"`, 
-		id: `.ytmp4 ${data.url}`
-		}, 
-		{
-		title: "Get Audio", 
-		description: `Get audio from "${data.title}"`, 
-		id: `.ytmp3 ${data.url}`
-		}]
-	}) 
+        title: data.title, 
+        rows: [{
+                title: "Get Video", 
+                description: `Get video from "${data.title}"`, 
+                id: `.ytmp4 ${data.url}`
+                }, 
+                {
+                title: "Get Audio", 
+                description: `Get audio from "${data.title}"`, 
+                id: `.ytmp3 ${data.url}`
+                }]
+        }) 
 }) 
 let listMessage = {
     title: 'Download Media!!', 
@@ -8248,16 +8268,16 @@ if (isAdmins) return reply(mess.admin)
 if (isOwner) return reply(mess.owner)
 kice = m.sender
         await Cantarella.sendMessage(m.chat,
-			    {
-			        delete: {
-			            remoteJid: m.chat,
-			            fromMe: false,
-			            id: m.key.id,
-			            participant: m.key.participant
-			        }
-			    })
+                            {
+                                delete: {
+                                    remoteJid: m.chat,
+                                    fromMe: false,
+                                    id: m.key.id,
+                                    participant: m.key.participant
+                                }
+                            })
 
-			Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+                        Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 // Anti Link Gc
@@ -8269,16 +8289,16 @@ if (isAdmins) return reply(mess.admin)
 if (isOwner) return reply(mess.owner)
 kice = m.sender
         await Cantarella.sendMessage(m.chat,
-			    {
-			        delete: {
-			            remoteJid: m.chat,
-			            fromMe: false,
-			            id: m.key.id,
-			            participant: m.key.participant
-			        }
-			    })
+                            {
+                                delete: {
+                                    remoteJid: m.chat,
+                                    fromMe: false,
+                                    id: m.key.id,
+                                    participant: m.key.participant
+                                }
+                            })
 
-			Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+                        Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 // Antilink Ch
@@ -8290,16 +8310,16 @@ if (isAdmins) return reply(mess.admin)
 if (isOwner) return reply(mess.owner)
 kice = m.sender
         await Cantarella.sendMessage(m.chat,
-			    {
-			        delete: {
-			            remoteJid: m.chat,
-			            fromMe: false,
-			            id: m.key.id,
-			            participant: m.key.participant
-			        }
-			    })
+                            {
+                                delete: {
+                                    remoteJid: m.chat,
+                                    fromMe: false,
+                                    id: m.key.id,
+                                    participant: m.key.participant
+                                }
+                            })
 
-			Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+                        Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 // Anti Link Ig
@@ -8311,16 +8331,16 @@ if (isAdmins) return reply(mess.admin)
 if (isOwner) return reply(mess.owner)
 kice = m.sender
         await Cantarella.sendMessage(m.chat,
-			    {
-			        delete: {
-			            remoteJid: m.chat,
-			            fromMe: false,
-			            id: m.key.id,
-			            participant: m.key.participant
-			        }
-			    })
+                            {
+                                delete: {
+                                    remoteJid: m.chat,
+                                    fromMe: false,
+                                    id: m.key.id,
+                                    participant: m.key.participant
+                                }
+                            })
 
-			Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+                        Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 // Antilinkall
@@ -8332,16 +8352,16 @@ if (isAdmins) return reply(mess.admin)
 if (isOwner) return reply(mess.owner)
 kice = m.sender
         await Cantarella.sendMessage(m.chat,
-			    {
-			        delete: {
-			            remoteJid: m.chat,
-			            fromMe: false,
-			            id: m.key.id,
-			            participant: m.key.participant
-			        }
-			    })
+                            {
+                                delete: {
+                                    remoteJid: m.chat,
+                                    fromMe: false,
+                                    id: m.key.id,
+                                    participant: m.key.participant
+                                }
+                            })
 
-			Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
+                        Cantarella.sendMessage(from, {text:`\`\`\`「 Tautan Terdeteksi 」\`\`\`\n\n@${m.sender.split("@")[0]} telah mengirimkan tautan dan berhasil dihapus`, contextInfo:{mentionedJid:[m.sender]}}, {quoted:m})
 } else {
 }
 //

@@ -4,7 +4,7 @@
    * Follow https://github.com/DikaArdnt
 */
 
-const { extractMessageContent, jidNormalizedUser, proto, delay, getContentType, areJidsSameUser, generateWAMessage } = require("@whiskeysockets/baileys")
+const { extractMessageContent, jidNormalizedUser, proto, delay, getContentType, areJidsSameUser, generateWAMessage, getAggregateVotesInPollMessage } = require("@whiskeysockets/baileys")
 const chalk = require('chalk')
 const fs = require('fs')
 const Crypto = require('crypto')
