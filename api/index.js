@@ -1,3 +1,3 @@
-import app from "../artifacts/api-server/dist/serverless.mjs";
+import app from "./dist/serverless.mjs";
 
 export default app;
