@@ -104,4 +104,70 @@ router.get("/quote", validateApikey, async (req, res) => {
   }
 });
 
+router.get("/translate", validateApikey, async (req, res) => {
+  const { text, from = "auto", to = "id" } = req.query as { text?: string; from?: string; to?: string };
+  if (!text) { res.status(400).json(errorResponse("Parameter text diperlukan.")); return; }
+  try {
+    const { data } = await http.get(
+      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`
+    );
+    const translated = Array.isArray(data) && Array.isArray(data[0])
+      ? data[0].map((x: string[]) => x[0]).join("")
+      : "";
+    res.json(successResponse({ original: text, translated, from, to }, "Google Translate"));
+  } catch (e) {
+    res.status(500).json(errorResponse("Gagal menerjemahkan teks. Coba lagi."));
+  }
+});
+
+router.get("/weather", validateApikey, async (req, res) => {
+  const { city = "Jakarta" } = req.query as { city?: string };
+  try {
+    const { data } = await http.get(
+      `https://wttr.in/${encodeURIComponent(city)}?format=j1`,
+      { headers: { Accept: "application/json" } }
+    );
+    const current = data?.current_condition?.[0];
+    if (!current) { res.status(404).json(errorResponse("Kota tidak ditemukan.")); return; }
+    res.json(successResponse({
+      city,
+      temp_c: current.temp_C,
+      temp_f: current.temp_F,
+      feels_like_c: current.FeelsLikeC,
+      humidity: current.humidity,
+      wind_kmph: current.windspeedKmph,
+      wind_dir: current.winddir16Point,
+      condition: current.weatherDesc?.[0]?.value,
+      visibility_km: current.visibility,
+      uv_index: current.uvIndex,
+    }, "wttr.in"));
+  } catch (e) {
+    res.status(500).json(errorResponse("Gagal mengambil data cuaca. Coba lagi."));
+  }
+});
+
+router.get("/sticker", validateApikey, async (req, res) => {
+  const { url } = req.query as { url?: string };
+  if (!url) { res.status(400).json(errorResponse("Parameter url (link gambar) diperlukan.")); return; }
+  try {
+    const { data } = await http.get(`https://api.siputzx.my.id/api/tools/sticker?url=${encodeURIComponent(url)}`);
+    if (!data?.status) { res.status(500).json(errorResponse("Gagal membuat stiker.")); return; }
+    res.json(successResponse(data.data || data, "api.siputzx.my.id"));
+  } catch (e) {
+    const stickerUrl = `https://api.siputzx.my.id/api/tools/sticker?url=${encodeURIComponent(url)}`;
+    res.json(successResponse({ sticker_url: stickerUrl, format: "webp", note: "Gunakan URL ini langsung sebagai stiker WhatsApp" }, "api.siputzx.my.id"));
+  }
+});
+
+router.get("/wm", validateApikey, async (req, res) => {
+  const { url, text } = req.query as { url?: string; text?: string };
+  if (!url || !text) { res.status(400).json(errorResponse("Parameter url dan text diperlukan.")); return; }
+  try {
+    const { data } = await http.get(`https://api.siputzx.my.id/api/tools/watermark?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+    res.json(successResponse(data?.data || data, "api.siputzx.my.id"));
+  } catch (e) {
+    res.status(500).json(errorResponse("Gagal menambahkan watermark."));
+  }
+});
+
 export default router;

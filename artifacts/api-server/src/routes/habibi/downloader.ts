@@ -130,4 +130,33 @@ router.get("/gdrive", validateApikey, async (req, res) => {
   }
 });
 
+router.get("/twitter", validateApikey, async (req, res) => {
+  const { url } = req.query as { url?: string };
+  if (!url) { res.status(400).json(errorResponse("Parameter url diperlukan.")); return; }
+  try {
+    const { data } = await http.get(`https://api.siputzx.my.id/api/d/twitter?url=${encodeURIComponent(url)}`);
+    if (!data?.status) { res.status(500).json(errorResponse("Gagal mengambil data Twitter/X.")); return; }
+    res.json(successResponse(data.data, "api.siputzx.my.id"));
+  } catch (e) {
+    try {
+      const { data } = await http.get(`https://twitsave.com/info?url=${encodeURIComponent(url)}`);
+      res.json(successResponse({ raw: data }, "twitsave.com"));
+    } catch {
+      res.status(500).json(errorResponse("Gagal mengambil video Twitter/X. Coba lagi."));
+    }
+  }
+});
+
+router.get("/spotify", validateApikey, async (req, res) => {
+  const { url } = req.query as { url?: string };
+  if (!url) { res.status(400).json(errorResponse("Parameter url diperlukan.")); return; }
+  try {
+    const { data } = await http.get(`https://api.siputzx.my.id/api/d/spotify?url=${encodeURIComponent(url)}`);
+    if (!data?.status) { res.status(500).json(errorResponse("Gagal mengunduh lagu Spotify.")); return; }
+    res.json(successResponse(data.data, "api.siputzx.my.id"));
+  } catch (e) {
+    res.status(500).json(errorResponse("Gagal menghubungi server. Coba lagi."));
+  }
+});
+
 export default router;
