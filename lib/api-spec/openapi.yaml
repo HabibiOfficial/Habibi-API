@@ -1,22 +1,24 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Habibi API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: meta
+    description: Platform metadata
+  - name: apikey
+    description: API Key management
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +26,77 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /habibi/stats:
+    get:
+      operationId: getStats
+      tags: [meta]
+      summary: Get platform statistics
+      responses:
+        "200":
+          description: Platform statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformStats"
+
+  /habibi/endpoints:
+    get:
+      operationId: listEndpoints
+      tags: [meta]
+      summary: List all available endpoints
+      responses:
+        "200":
+          description: List of all endpoints
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EndpointList"
+
+  /habibi/apikey/generate:
+    post:
+      operationId: generateApikey
+      tags: [apikey]
+      summary: Generate a new API key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateApikeyBody"
+      responses:
+        "200":
+          description: Generated API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApikeyInfo"
+
+  /habibi/apikey/check:
+    get:
+      operationId: checkApikey
+      tags: [apikey]
+      summary: Check API key validity and usage
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: API key information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApikeyInfo"
+        "404":
+          description: API key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -31,6 +104,99 @@ components:
       properties:
         status:
           type: string
-      required:
-        - status
+      required: [status]
 
+    PlatformStats:
+      type: object
+      properties:
+        totalEndpoints:
+          type: integer
+        activeEndpoints:
+          type: integer
+        totalRequests:
+          type: integer
+        requestsToday:
+          type: integer
+        totalApikeys:
+          type: integer
+        uptime:
+          type: string
+        creator:
+          type: string
+        version:
+          type: string
+      required: [totalEndpoints, activeEndpoints, totalRequests, requestsToday, totalApikeys, uptime, creator, version]
+
+    EndpointItem:
+      type: object
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        method:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+        params:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum: [active, maintenance, error]
+        requiresApikey:
+          type: boolean
+      required: [name, path, method, category, description, params, status, requiresApikey]
+
+    EndpointList:
+      type: object
+      properties:
+        total:
+          type: integer
+        categories:
+          type: array
+          items:
+            type: string
+        endpoints:
+          type: array
+          items:
+            $ref: "#/components/schemas/EndpointItem"
+      required: [total, categories, endpoints]
+
+    GenerateApikeyBody:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+      required: [name, email]
+
+    ApikeyInfo:
+      type: object
+      properties:
+        apikey:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        createdAt:
+          type: string
+        requestCount:
+          type: integer
+        isValid:
+          type: boolean
+      required: [apikey, name, email, createdAt, requestCount, isValid]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required: [error, message]

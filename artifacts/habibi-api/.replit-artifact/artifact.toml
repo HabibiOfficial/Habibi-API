@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Habibi API"
+version = "1.0.0"
+id = "artifacts/habibi-api"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25072
+
+[services.development]
+run = "pnpm --filter @workspace/habibi-api run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/habibi-api", "run", "build" ]
+publicDir = "artifacts/habibi-api/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25072"
+BASE_PATH = "/"

@@ -1,27 +1,67 @@
-# Workspace
+# Habibi API Platform
 
 ## Overview
+Full-stack REST API platform built by HabibiTzy. Self-hosted API service with website UI, API key management, and 31+ endpoints across 5 categories.
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+## Architecture
+- **Frontend**: React + Vite (`artifacts/habibi-api/`) — runs at `/` (port 25072)
+- **Backend**: Express.js TypeScript (`artifacts/api-server/`) — runs at `/api` (port 8080)
+- **Database**: PostgreSQL via Replit built-in database (Drizzle ORM)
+- **Monorepo**: pnpm workspace
 
-## Stack
+## Key Files
+- `artifacts/habibi-api/src/` — React frontend (pages: Home, Docs, API Key, Donasi, Sosmed)
+- `artifacts/api-server/src/routes/habibi/` — All API route handlers
+  - `meta.ts` — Stats + endpoint list endpoints
+  - `apikey.ts` — API key generation + validation
+  - `downloader.ts` — TikTok, Instagram, Facebook, YouTube, Mediafire, Pinterest, CapCut, Snackvideo, GDrive
+  - `tools.ts` — TTS, RemoveBG, Screenshot, EmojiMix, Brat, IQCard, Meme, iPhone Chat, Quote
+  - `ai.ts` — AI Chat (Gemini), AI Image Generate (Pollinations)
+  - `search.ts` — YouTube Search, Lyrics, Spotify Search
+  - `islam.ts` — Jadwal Sholat, Quran, Surah, Hadits, Asmaul Husna, Doa Harian, Kiblat, Zakat
+  - `middleware.ts` — API key validation middleware
+- `lib/db/src/schema/apikeys.ts` — DB schema: apikeys table + request_logs table
+- `lib/api-spec/openapi.yaml` — OpenAPI spec for meta/apikey endpoints
 
-- **Monorepo tool**: pnpm workspaces
-- **Node.js version**: 24
-- **Package manager**: pnpm
-- **TypeScript version**: 5.9
-- **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
-- **Validation**: Zod (`zod/v4`), `drizzle-zod`
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
+## API Endpoints
+All scraper endpoints require apikey. Format: `/api/habibi/{category}/{name}?apikey=xxx`
 
-## Key Commands
+### Downloader (9 endpoints)
+TikTok, Instagram, Facebook, YouTube, Mediafire, Pinterest, CapCut, Snackvideo, GDrive
 
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm --filter @workspace/api-server run dev` — run API server locally
+### Tools (9 endpoints)
+TTS, RemoveBG, Screenshot, EmojiMix, Brat Sticker, IQ Card, Meme, iPhone Chat, Quote Card
 
-See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+### AI (2 endpoints)
+AI Chat (Gemini fallback: Meta Llama), AI Image (Pollinations.ai)
+
+### Search (3 endpoints)
+YouTube Search, Lyrics, Spotify Search
+
+### Islam (8 endpoints)
+Jadwal Sholat, Al-Quran, Daftar Surah, Hadits, Asmaul Husna, Doa Harian, Kiblat, Zakat
+
+### Meta (no apikey required)
+- `GET /api/habibi/stats` — platform stats
+- `GET /api/habibi/endpoints` — list all endpoints
+
+### API Key Management
+- `POST /api/habibi/apikey/generate` — generate new apikey (body: name, email)
+- `GET /api/habibi/apikey/check?apikey=xxx` — check key status
+
+## External API Dependencies
+- `api.siputzx.my.id` — most scraper endpoints
+- `tikwm.com` — TikTok downloader
+- `aladhan.com` — prayer times
+- `equran.id / quran.gading.dev` — Al-Quran
+- `hadith.gading.dev` — Hadith
+- `microlink.io` — website screenshots
+- `pollinations.ai` — AI image generation
+- `memegen.link` — meme generator
+
+## Database Tables
+- `apikeys` — stores API keys with name, email, request count
+- `request_logs` — logs every authenticated request
+
+## Deployment
+Deploy backend to Railway, frontend to Vercel or both on Replit.
