@@ -1,6 +1,12 @@
 {
   "cleanUrls": true,
-  "outputDirectory": "public",
-  "installCommand": "echo skip",
-  "buildCommand": "echo skip"
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
+
